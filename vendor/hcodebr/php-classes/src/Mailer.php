@@ -3,11 +3,11 @@ namespace Hcode;
 use Rain\Tpl;
 
 class Mailer{
-	const USERNAME = "donizetimarcolino@gmail.com";
+	const USERNAME = "marcolino.suporte@gmail.com";
 	const PASSWORD = "<?password?>";
-	const NAME_FROM = " Hcode store";
+	const NAME_FROM = " Hcode Store";
 	private $mail;
-	public function __construct($toAddress, $toName, $subject, $tplName,$data = array()){
+	public function __construct($toAddress, $toName, $subject, $tplName, $data = array()){
 		$this->mail = new \PHPMailer;
 $config = array(
 			"tpl_dir"       => $_SERVER["DOCUMENT_ROOT"]. "/views/email/",
@@ -53,13 +53,13 @@ $config = array(
 		$this->mail->SMTPAuth = true;
 
 		//Username to use for SMTP authentication - use full email address for gmail
-		$this->mail->Username = mailer::USERNAME;
+		$this->mail->Username = Mailer::USERNAME;
 
 		//Password to use for SMTP authentication
-		$this->mail->Password = mailer::PASSWORD;
+		$this->mail->Password = Mailer::PASSWORD;
 
 		//Set who the message is to be sent from
-		$this->mail->SetFrom(mailer::USERNAME, mailer::NAME_FROM);
+		$this->mail->SetFrom(Mailer::USERNAME, Mailer::NAME_FROM);
 
 		//Set an alternative reply-to address
 		$this->mail->addReplyTo('', 'First Last');
@@ -84,6 +84,7 @@ $config = array(
 			
 			public function send(){
 				return $this->mail->send();
+				
 			}
 	
 }
