@@ -2,6 +2,7 @@
 session_start();
 
 require_once("vendor/autoload.php");
+
 use \Slim\Slim;
 use Hcode\Page;
 use Hcode\PageAdmin;
@@ -200,6 +201,7 @@ $app->get("/categories/:idcategory",function($idcategory){
 	$page = new Page();
 	$page->setTpl("category",["category"=>$category->getValues(),"products"=>[]]);
 });
+require_once("admin-products.php");
 
 $app->run();
 
