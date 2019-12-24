@@ -2,20 +2,23 @@
 session_start();
 
 require_once("vendor/autoload.php");
+require_once("functions.php");
 
 use \Slim\Slim;
 use Hcode\Page;
 use Hcode\PageAdmin;
 use Hcode\Model\User;
 use Hcode\Model\Category;
+use Hcode\Model\Product;
 
 $app = new Slim();
 
 $app->config("debug", true);
 //Index
-$app->get("/", function() {    
+$app->get("/", function() {
+	$products = Product::listAll();
 	$page = new Page();
-	$page->setTpl("index");
+	$page->setTpl("index",["products"=>Product::checkList($products)]);
 });
 //Admin
 $app->get("/admin", function() { 
