@@ -151,7 +151,7 @@ class Category extends Model {
 		];
 
 	}
-
+	
 }
 
  ?>
