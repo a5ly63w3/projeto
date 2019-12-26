@@ -146,11 +146,25 @@ $app->post("/admin/forgot/reset",function(){
 	
 });
 $app->get("/categories/:idcategory",function($idcategory){
-	
+	$page = (isset($_GET["page"]))?(int)$_GET["page"]:1;
 	$category = new Category();
 	$category->get((int)$idcategory);
+	$pagination = $category->getProductsPage($page);
+	$pages = [];
+	for($i=1;$i<=$pagination["pages"];$i++){
+		array_push($pages,[
+			"link"=>"/categories/".$category->getCategory()."?page=".$i,
+			"page"=>$i
+		]);
+	}
 	$page = new Page();
-	$page->setTpl("category",["category"=>$category->getValues(),"products"=>Product::checkList($category->getProducts())]);
+	$page->setTpl("category",
+	["category"=>$category->getValues(),
+	"products"=>$pagination["data"],
+	"pages"=>$page
+	]
+	
+	);
 });
 require_once("admin-products.php");
 require_once("admin-category.php");
