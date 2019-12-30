@@ -82,36 +82,25 @@ class Cart extends Model {
 
 	}
 
-	public function removeProduct(Product $product, $all = false)
-	{
-
+	public function removeProduct(Product $product, $all = false){
 		$sql = new Sql();
-
 		if ($all) {
-
 			$sql->query("UPDATE tb_cartsproducts SET dtremoved = NOW() WHERE idcart = :idcart AND idproduct = :idproduct AND dtremoved IS NULL", [
 				':idcart'=>$this->getidcart(),
 				':idproduct'=>$product->getidproduct()
 			]);
 
 		} else {
-
 			$sql->query("UPDATE tb_cartsproducts SET dtremoved = NOW() WHERE idcart = :idcart AND idproduct = :idproduct AND dtremoved IS NULL LIMIT 1", [
 				':idcart'=>$this->getidcart(),
 				':idproduct'=>$product->getidproduct()
 			]);
-
 		}
-
 		$this->getCalculateTotal();
-
 	}
 
-	public function getProducts()
-	{
-
+	public function getProducts(){
 		$sql = new Sql();
-
 		$rows = $sql->select("
 			SELECT b.idproduct, b.desproduct , b.vlprice, b.vlwidth, b.vlheight, b.vllength, b.vlweight, b.desurl, COUNT(*) AS nrqtd, SUM(b.vlprice) AS vltotal 
 			FROM tb_cartsproducts a 
@@ -127,8 +116,7 @@ class Cart extends Model {
 
 	}
 
-	public function getProductsTotals()
-	{
+	public function getProductsTotals(){
 
 		$sql = new Sql();
 
@@ -149,8 +137,7 @@ class Cart extends Model {
 
 	}
 
-	public function setFreight($nrzipcode)
-	{
+	public function setFreight($nrzipcode){
 
 		$nrzipcode = str_replace('-', '', $nrzipcode);
 
@@ -208,69 +195,36 @@ class Cart extends Model {
 
 	}
 
-	public static function formatValueToDecimal($value):float
-	{
-
+	public static function formatValueToDecimal($value):float{
 		$value = str_replace('.', '', $value);
 		return str_replace(',', '.', $value);
-
 	}
 
-	public static function setMsgError($msg)
-	{
-
+	public static function setMsgError($msg){
 		$_SESSION[Cart::SESSION_ERROR] = $msg;
-
 	}
-
-	public static function getMsgError()
-	{
-
+	public static function getMsgError(){
 		$msg = (isset($_SESSION[Cart::SESSION_ERROR])) ? $_SESSION[Cart::SESSION_ERROR] : "";
-
 		Cart::clearMsgError();
-
 		return $msg;
-
 	}
-
-	public static function clearMsgError()
-	{
-
+	public static function clearMsgError(){
 		$_SESSION[Cart::SESSION_ERROR] = NULL;
-
 	}
-
-	public function updateFreight()
-	{
-
+	public function updateFreight(){
 		if ($this->getdeszipcode() != '') {
-
 			$this->setFreight($this->getdeszipcode());
-
 		}
-
 	}
-
-	public function getValues()
-	{
-
+	public function getValues(){
 		$this->getCalculateTotal();
-
 		return parent::getValues();
-
 	}
-
-	public function getCalculateTotal()
-	{
-
+	public function getCalculateTotal(){
 		$this->updateFreight();
-
 		$totals = $this->getProductsTotals();
-
 		$this->setvlsubtotal($totals['vlprice']);
 		$this->setvltotal($totals['vlprice'] + (float)$this->getvlfreight());
-
 	}
 
 }
