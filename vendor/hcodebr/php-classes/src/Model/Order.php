@@ -11,8 +11,7 @@ class Order extends Model {
 	const SUCCESS = "Order-Success";
 	const ERROR = "Order-Error";
 
-	public function save()
-	{
+	public function save(){
 
 		$sql = new Sql();
 
@@ -28,11 +27,9 @@ class Order extends Model {
 		if (count($results) > 0) {
 			$this->setData($results[0]);
 		}
-
 	}
 
-	public function get($idorder)
-	{
+	public function get($idorder){
 
 		$sql = new Sql();
 
@@ -55,8 +52,7 @@ class Order extends Model {
 
 	}
 
-	public static function listAll()
-	{
+	public static function listAll(){
 
 		$sql = new Sql();
 
@@ -73,8 +69,7 @@ class Order extends Model {
 
 	}
 
-	public function delete()
-	{
+	public function delete(){
 
 		$sql = new Sql();
 
@@ -84,8 +79,7 @@ class Order extends Model {
 
 	}
 
-	public function getCart():Cart
-	{
+	public function getCart():Cart{
 
 		$cart = new Cart();
 
@@ -95,15 +89,13 @@ class Order extends Model {
 
 	}
 
-	public static function setError($msg)
-	{
+	public static function setError($msg){
 
 		$_SESSION[Order::ERROR] = $msg;
 
 	}
 
-	public static function getError()
-	{
+	public static function getError(){
 
 		$msg = (isset($_SESSION[Order::ERROR]) && $_SESSION[Order::ERROR]) ? $_SESSION[Order::ERROR] : '';
 
@@ -113,8 +105,7 @@ class Order extends Model {
 
 	}
 
-	public static function clearError()
-	{
+	public static function clearError()	{
 
 		$_SESSION[Order::ERROR] = NULL;
 
@@ -127,8 +118,7 @@ class Order extends Model {
 
 	}
 
-	public static function getSuccess()
-	{
+	public static function getSuccess(){
 
 		$msg = (isset($_SESSION[Order::SUCCESS]) && $_SESSION[Order::SUCCESS]) ? $_SESSION[Order::SUCCESS] : '';
 
@@ -138,8 +128,7 @@ class Order extends Model {
 
 	}
 
-	public static function clearSuccess()
-	{
+	public static function clearSuccess(){
 
 		$_SESSION[Order::SUCCESS] = NULL;
 
@@ -174,8 +163,7 @@ class Order extends Model {
 
 	}
 
-	public static function getPageSearch($search, $page = 1, $itemsPerPage = 10)
-	{
+	public static function getPageSearch($search, $page = 1, $itemsPerPage = 10){
 
 		$start = ($page - 1) * $itemsPerPage;
 
