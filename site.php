@@ -177,9 +177,9 @@ $app->post("/checkout", function(){
 		'vltotal'=>$cart->getvltotal()
 	]);
 	$order->save();
-	header("location:/order/".$order->getidorder()."/pagseguro");
-	exit;
-	/*switch ((int)$_POST['payment-method']) {
+	//header("location:/order/".$order->getidorder()."/pagseguro");
+	//exit;
+	switch ((int)$_POST['payment-method']) {
 
 		case 1:
 		header("Location: /order/".$order->getidorder()."/pagseguro");
@@ -190,7 +190,7 @@ $app->post("/checkout", function(){
 		break;
 
 	}
-	exit;*/
+	exit;
 });
 
 $app->get("/order/:idorder/pagseguro", function($idorder){
