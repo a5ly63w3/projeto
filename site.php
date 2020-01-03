@@ -177,7 +177,7 @@ $app->post("/checkout", function(){
 		'vltotal'=>$cart->getvltotal()
 	]);
 	$order->save();
-	header("location:/order/".$order->getidorder());
+	header("location:/order/".$order->getidorder()."/pagseguro");
 	exit;
 	/*switch ((int)$_POST['payment-method']) {
 
