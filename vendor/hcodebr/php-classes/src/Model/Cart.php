@@ -171,7 +171,7 @@ class Cart extends Model {
 
 			if ($result->MsgErro != '') {
 
-				Cart::setMsgError($result->MsgErro);
+				Cart::setMsgError((string)$result->MsgErro);
 
 			} else {
 
